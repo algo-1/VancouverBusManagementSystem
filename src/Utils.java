@@ -16,7 +16,7 @@ public class Utils {
             String line;
             while ((line = br.readLine()) != null)
             {
-                if (count > 1)
+                if (count > 0)
                 {
                     String[] input = line.trim().split(",");
                     int stopID = Integer.parseInt(input[0]);
@@ -58,13 +58,13 @@ public class Utils {
             String line;
             while ((line = br.readLine()) != null)
             {
-                if (count > 2)
+                if (count > 0)
                 {
                     line = line.replace(" ", "");
                     String[] input = line.trim().split(",");
                     int tripID = Integer.parseInt(input[0]);
                     int stopID = Integer.parseInt(input[3]);
-                    if (prevTripID != tripID)
+                    if (prevTripID == tripID)
                     {
                         edges.add(new Edge(prevStopID, stopID, cost));
                     }
@@ -90,8 +90,10 @@ public class Utils {
             int count = 0;
             String line;
             while ((line = br.readLine()) != null) {
-                if (count > 1){
-                    String[] input = line.trim().split("\\s+");
+                if (count > 0)
+                {
+                    line = line.replace(" ", "");
+                    String[] input = line.trim().split(",");
                     int from = Integer.parseInt(input[0]);
                     int to = Integer.parseInt(input[1]);
                     int transferType = Integer.parseInt(input[2]);
