@@ -8,12 +8,14 @@ public class Utils {
     public static List<Stop> getStops(String filename)
     {
         List<Stop> stops = new ArrayList<>();
-        try {
+        try
+        {
             File file = new File(filename).getAbsoluteFile();
             BufferedReader br = new BufferedReader(new FileReader(file));
             int count = 0;
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
+            {
                 if (count > 1)
                 {
                     String[] input = line.trim().split(",");
@@ -22,14 +24,16 @@ public class Utils {
                 }
                 count++;
             }
-        } catch(Exception e) {
+        } catch(Exception e)
+        {
             e.printStackTrace();
         }
 
         return stops;
     }
 
-    public static List<Edge> getEdges(String filename) throws Exception {
+    public static List<Edge> getEdges(String filename) throws Exception
+    {
         if (filename.equals("stop_times.txt"))
         {
             return parseStopTimes(filename);
@@ -40,7 +44,7 @@ public class Utils {
         }
         else throw new Exception("Invalid File name.");
     }
-    
+
     private static List<Edge> parseStopTimes(String filename)
     {
         List<Edge> edges = new ArrayList<>();

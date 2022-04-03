@@ -33,13 +33,16 @@ public class Graph {
     private Map<Integer, List<Pair<Integer, Double>>> buildMap(List<Edge> edges)
     {
         Map<Integer, List<Pair<Integer, Double>>> map = new HashMap<>();
-        for (Edge edge: edges) {
+        for (Edge edge: edges)
+        {
             if (edge != null) {
-                if (!map.containsKey(edge.from)) {
+                if (!map.containsKey(edge.from))
+                {
                     List<Pair<Integer, Double>> neighbours = new ArrayList<>();
                     neighbours.add(new Pair<Integer, Double>(edge.to, edge.cost));
                     map.put(edge.from, neighbours);
-                } else {
+                } else
+                {
                     map.get(edge.from).add(new Pair<Integer, Double>(edge.to, edge.cost));
                 }
             }
