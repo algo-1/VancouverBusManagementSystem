@@ -73,7 +73,7 @@ public class Utils {
                     {
                         edges.add(new Edge(prevStopID, stopID, cost, arrivalTime, tripID));
                     }
-                    else edges.add(new Edge(-1, stopID, 1.0, arrivalTime, tripID));
+                    else edges.add(new Edge(-1, stopID, 0.0, arrivalTime, tripID));
                     prevStopID = stopID;
                     prevTripID = tripID;
                 }
