@@ -73,6 +73,7 @@ public class Utils {
                     {
                         edges.add(new Edge(prevStopID, stopID, cost, arrivalTime, tripID));
                     }
+                    else edges.add(new Edge(-1, stopID, 1.0, arrivalTime, tripID));
                     prevStopID = stopID;
                     prevTripID = tripID;
                 }
@@ -122,5 +123,19 @@ public class Utils {
     {
         String[] time = arrivalTime.split(":");
         return Integer.parseInt(time[0]) >= 24 || Integer.parseInt(time[1]) >= 60 || Integer.parseInt(time[2]) >= 60;
+    }
+
+    public static boolean isEqual(String arrivalTime, String stopArrivalTime)
+    {
+        if (stopArrivalTime.equals(""))
+        {
+            return false;
+        }
+        String[] time1 = arrivalTime.split(":");
+        String[] time2 = stopArrivalTime.split(":");
+
+        return Integer.parseInt(time1[0]) == Integer.parseInt(time2[0]) &&
+                Integer.parseInt(time1[1]) == Integer.parseInt(time2[1]) &&
+                Integer.parseInt(time1[2]) == Integer.parseInt(time2[2]);
     }
 }

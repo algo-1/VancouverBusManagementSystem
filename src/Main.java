@@ -1,5 +1,5 @@
-import java.util.Collections;
-import java.util.Deque;
+import jdk.jshell.execution.Util;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -39,10 +39,14 @@ public class Main {
             System.out.print("Enter an arrival time in format hh:mm:ss: ");
             String arrivalTime = in.next();
             if (arrivalTime.equals("quit")) break;
+
             List<Edge> result = edges.stream()
-                    .filter(edge -> edge.arrivalTime.equals(arrivalTime)).sorted().collect(Collectors.toList());
+                    .filter(edge -> Utils.isEqual(arrivalTime, edge.arrivalTime))
+                    .sorted()
+                    .collect(Collectors.toList());
+
             for (Edge edge : result) {
-                System.out.printf("trip_id = %d, arrival time = %s\n", edge.tripID, edge.arrivalTime);
+                System.out.printf("trip_id = %d, stop_id = %d, arrival time = %s\n", edge.tripID, edge.to, edge.arrivalTime);
             }
         } while (true);
 

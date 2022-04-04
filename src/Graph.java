@@ -35,7 +35,7 @@ public class Graph {
         Map<Integer, List<Pair<Integer, Double>>> map = new HashMap<>();
         for (Edge edge: edges)
         {
-            if (edge != null) {
+            if (edge != null && edge.from != -1) {
                 if (!map.containsKey(edge.from))
                 {
                     List<Pair<Integer, Double>> neighbours = new ArrayList<>();
