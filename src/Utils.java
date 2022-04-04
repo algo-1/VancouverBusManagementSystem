@@ -64,9 +64,14 @@ public class Utils {
                     String[] input = line.trim().split(",");
                     int tripID = Integer.parseInt(input[0]);
                     int stopID = Integer.parseInt(input[3]);
+                    String arrivalTime = input[1];
+                    if (isInvalid(arrivalTime))
+                    {
+                        continue;
+                    }
                     if (prevTripID == tripID)
                     {
-                        edges.add(new Edge(prevStopID, stopID, cost));
+                        edges.add(new Edge(prevStopID, stopID, cost, arrivalTime, tripID));
                     }
                     prevStopID = stopID;
                     prevTripID = tripID;
@@ -111,5 +116,11 @@ public class Utils {
             e.printStackTrace();
         }
         return edges;
+    }
+
+    private static boolean isInvalid(String arrivalTime)
+    {
+        String[] time = arrivalTime.split(":");
+        return Integer.parseInt(time[0]) >= 24 || Integer.parseInt(time[1]) >= 60 || Integer.parseInt(time[2]) >= 60;
     }
 }
