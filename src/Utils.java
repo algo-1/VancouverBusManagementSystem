@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Utils {
+    static Set<String> stopWords = new HashSet<String>(Arrays.asList("FLAGSTOP", "WB", "NB", "SB", "EB"));
+
     public static List<Stop> getStops(String filename)
     {
         List<Stop> stops = new ArrayList<>();
@@ -19,7 +21,7 @@ public class Utils {
                 {
                     String[] input = line.trim().split(",");
                     int stopID = Integer.parseInt(input[0]);
-                    String stopName = input[2];
+                    String stopName = format(input[2], stopWords);
                     stops.add(new Stop(stopID, stopName));
                 }
                 count++;

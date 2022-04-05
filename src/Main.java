@@ -13,14 +13,10 @@ public class Main {
         Graph graph = new Graph(edges);
 
         TernarySearchTree tst = new TernarySearchTree();
-        Set<String> stopWords = new HashSet<String>(Arrays.asList("FLAGSTOP", "WB", "NB", "SB", "EB"));
 
-        List<String> busStopNames = stops.stream()
-                .map(stop -> Utils.format(stop.stopName, stopWords))
-                .collect(Collectors.toList());
-        for (String stopName: busStopNames)
+        for (Stop stop : stops)
         {
-            tst.insert(stopName);
+            tst.insert(stop.stopName, stop);
         }
 
         // Q1
@@ -54,10 +50,11 @@ public class Main {
 
             if (!busStop.equalsIgnoreCase("quit"))
             {
-                List<String> matches = tst.find(busStop);
-                for (String match : matches)
+                List<Stop> matches = tst.find(busStop);
+                for (Stop stop : matches)
                 {
-                    System.out.println(match);
+                    if (stop == null) System.out.println();
+                    else System.out.printf("stop name = %s, stop id = %d\n", stop.stopName, stop.stopID);
                 }
             }
 
