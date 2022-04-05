@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
     public static List<Stop> getStops(String filename)
@@ -20,7 +19,8 @@ public class Utils {
                 {
                     String[] input = line.trim().split(",");
                     int stopID = Integer.parseInt(input[0]);
-                    stops.add(new Stop(stopID));
+                    String stopName = input[2];
+                    stops.add(new Stop(stopID, stopName));
                 }
                 count++;
             }
@@ -137,5 +137,20 @@ public class Utils {
         return Integer.parseInt(time1[0]) == Integer.parseInt(time2[0]) &&
                 Integer.parseInt(time1[1]) == Integer.parseInt(time2[1]) &&
                 Integer.parseInt(time1[2]) == Integer.parseInt(time2[2]);
+    }
+
+    public static String format(String stopName, Set<String> stopWords)
+    {
+        String[] word = stopName.split(" ", 3);
+        if (stopWords.contains(word[0]))
+        {
+            if (stopWords.contains(word[1]))
+            {
+                return word[2] + " " + word[0] + " " + word[1];
+            }
+            if (word.length == 3) return word[1] + " " + word[2] + " " + word[0];
+            return word[1] + " " + word[0];
+        }
+        return stopName;
     }
 }
