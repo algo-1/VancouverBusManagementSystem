@@ -56,11 +56,11 @@ public class TernarySearchTree {
         }
         else
         {
-            return getWords(node, new ArrayList<Stop>(), new StringBuilder());
+            return getMatchingStops(node, new ArrayList<Stop>());
         }
     }
 
-    private List<Stop> getWords(Node node, List<Stop> matchingStops, StringBuilder suffix)
+    private List<Stop> getMatchingStops(Node node, List<Stop> matchingStops)
     {
         if (node.mid == null)
         {
@@ -74,7 +74,7 @@ public class TernarySearchTree {
         subTries = getSubTries(node.mid, subTries);
         for (Node trie : subTries)
         {
-            getWords(trie, matchingStops, new StringBuilder(suffix).append(trie.key));
+            getMatchingStops(trie, matchingStops);
         }
 
         return matchingStops;
