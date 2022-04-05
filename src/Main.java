@@ -1,6 +1,4 @@
-import java.util.Deque;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -13,6 +11,17 @@ public class Main {
         List<Edge> edges = Utils.getEdges("stop_times.txt");
         edges.addAll(Utils.getEdges("transfers.txt"));
         Graph graph = new Graph(edges);
+
+        TernarySearchTree tst = new TernarySearchTree();
+        Set<String> stopWords = new HashSet<String>(Arrays.asList("FLAGSTOP", "WB", "NB", "SB", "EB"));
+
+        List<String> busStopNames = stops.stream()
+                .map(stop -> Utils.format(stop.stopName, stopWords))
+                .collect(Collectors.toList());
+        for (String stopName: busStopNames)
+        {
+            tst.insert(stopName);
+        }
 
         // Q1
         do {
@@ -31,7 +40,28 @@ public class Main {
 
 
         // Q2
+        in = new Scanner(System.in);
+        boolean done = false;
+        do {
+            String busStop = "";
+            do
+            {
+                System.out.print("Enter part of a bus stop name: ");
+                busStop = in.nextLine().trim().toUpperCase();
+                if (busStop.equalsIgnoreCase("quit")) done = true;
 
+            } while (busStop.length() == 0);
+
+            if (!busStop.equalsIgnoreCase("quit"))
+            {
+                List<String> matches = tst.find(busStop);
+                for (String match : matches)
+                {
+                    System.out.println(match);
+                }
+            }
+
+        } while (!done);
 
         // Q3
         in = new Scanner(System.in);
