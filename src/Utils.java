@@ -66,8 +66,12 @@ public class Utils {
                     String[] input = line.trim().split(",");
                     int tripID = Integer.parseInt(input[0]);
                     int stopID = Integer.parseInt(input[3]);
-                    String arrivalTime = input[1];
-                    if (isInvalid(arrivalTime))
+                    String[] time = input[1].split(":");
+                    String hour = time[0];
+                    String min = time[1];
+                    String sec = time[2];
+                    Time arrivalTime = new Time(hour, min, sec);
+                    if (Time.isInvalid(arrivalTime))
                     {
                         continue;
                     }
@@ -119,26 +123,6 @@ public class Utils {
             e.printStackTrace();
         }
         return edges;
-    }
-
-    private static boolean isInvalid(String arrivalTime)
-    {
-        String[] time = arrivalTime.split(":");
-        return Integer.parseInt(time[0]) >= 24 || Integer.parseInt(time[1]) >= 60 || Integer.parseInt(time[2]) >= 60;
-    }
-
-    public static boolean isEqual(String arrivalTime, String stopArrivalTime)
-    {
-        if (stopArrivalTime.equals(""))
-        {
-            return false;
-        }
-        String[] time1 = arrivalTime.split(":");
-        String[] time2 = stopArrivalTime.split(":");
-
-        return Integer.parseInt(time1[0]) == Integer.parseInt(time2[0]) &&
-                Integer.parseInt(time1[1]) == Integer.parseInt(time2[1]) &&
-                Integer.parseInt(time1[2]) == Integer.parseInt(time2[2]);
     }
 
     public static String format(String stopName, Set<String> stopWords)
