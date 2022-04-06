@@ -13,6 +13,7 @@ public class Dijkstra {
         Map<Integer, Integer> prevStopIDs = new HashMap<Integer, Integer>();
 
         boolean sourceExists = false;
+        boolean endExists = false;
         // set the cost from the source to all other intersections to the max value
         for (int stopID: stopIDs) {
             lowestCosts.put(stopID, Double.MAX_VALUE);
@@ -20,12 +21,14 @@ public class Dijkstra {
             {
                 sourceExists = true;
             }
+            if (stopID == endStopID)
+            {
+                endExists = true;
+            }
         }
 
-        if (!sourceExists)
-        {
-            throw new Exception("Start stop_id is invalid!");
-        }
+        if (!sourceExists) throw new Exception("Start stop_id is invalid.");
+        if (!endExists) throw new Exception("End stop_id is invalid.");
 
         lowestCosts.put(sourceStopID, 0.0);
 
@@ -54,7 +57,7 @@ public class Dijkstra {
             }
         }
 
-        if (!prevStopIDs.containsKey(endStopID))
+        if (!prevStopIDs.containsKey(endStopID) && endStopID != sourceStopID)
         {
             throw new Exception("A path does not exist between the two stops.");
         }
