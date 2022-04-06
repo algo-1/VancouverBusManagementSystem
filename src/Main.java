@@ -34,30 +34,32 @@ public class Main {
         {
             // Q1
             in = new Scanner(System.in);
-            do {
-                System.out.print("Enter a start stop_id: ");
-                if (!in.hasNextInt())
+            outerloop:
+            while(true)
+            {
+                do
                 {
-                    if(in.next().equalsIgnoreCase("quit")) break;
-                    System.out.println("Enter a number");
-                    continue;
-                }
+                    System.out.print("Enter a start bus stop id: ");
+                    if (in.hasNextInt()) break;
+                    if (in.next().equalsIgnoreCase("quit")) break outerloop;
+                } while ((!in.hasNextInt()));
                 int sourceStopID = in.nextInt();
-                System.out.print("Enter a stop stop_id: ");
-                if (!in.hasNextInt())
+
+                do
                 {
-                    if(in.next().equalsIgnoreCase("quit")) break;
-                    System.out.println("Enter a number");
-                    continue;
-                }
-                if (!in.hasNextInt()) break;
+                    System.out.print("Enter an end bus stop id: ");
+                    if (in.hasNextInt()) break;
+                    if (in.next().equalsIgnoreCase("quit")) break outerloop;
+                } while (true);
                 int endStopID = in.nextInt();
+
                 System.out.printf("start stop_id = %d stop stop_id = %d\n", sourceStopID, endStopID);
                 Deque<Pair<Integer, Double>> shortestPath = Dijkstra.dijkstra(sourceStopID, endStopID, stopIDs, graph);
-                for (Pair<Integer, Double> pair : shortestPath) {
+                for (Pair<Integer, Double> pair : shortestPath)
+                {
                     System.out.printf("stop_id = %d cost = %f\n", pair.first, pair.second);
                 }
-            } while (true);
+            }
         }
         else if (select == 2)
         {
@@ -96,20 +98,13 @@ public class Main {
             do {
                 System.out.print("Enter an arrival time in format hh:mm:ss: ");
                 String input = in.next();
-                if (input.equals("quit")) break;
-                String hour, min, sec;
-                try
-                {
-                    String[] time = input.split(":");
-                    hour = time[0];
-                    min = time[1];
-                    sec = time[2];
-                } catch (Exception e)
-                {
+                if (input.equalsIgnoreCase("quit")) break;
+                if (Time.isInvalidFormat(input)){
                     System.out.println("Invalid time format.");
                     continue;
                 }
-                Time arrivalTime = new Time(hour, min, sec);
+                String[] time = input.split(":");
+                Time arrivalTime = new Time(time[0], time[1], time[2]);
                 if(Time.isInvalid(arrivalTime))
                 {
                     System.out.println("Invalid time.");
