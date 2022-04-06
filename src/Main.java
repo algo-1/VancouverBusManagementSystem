@@ -36,7 +36,11 @@ public class Main {
             in = new Scanner(System.in);
             do {
                 System.out.print("Enter a start stop_id: ");
-                if (!in.hasNextInt()) break;
+                if (!in.hasNextInt())
+                {
+                    if(in.next().equalsIgnoreCase("quit")) break;
+                    continue;
+                }
                 int sourceStopID = in.nextInt();
                 System.out.print("Enter a stop stop_id: ");
                 if (!in.hasNextInt()) break;
@@ -83,11 +87,28 @@ public class Main {
             in = new Scanner(System.in);
             do {
                 System.out.print("Enter an arrival time in format hh:mm:ss: ");
-                String arrivalTime = in.next();
-                if (arrivalTime.equals("quit")) break;
-
+                String input = in.next();
+                if (input.equals("quit")) break;
+                String hour, min, sec;
+                try
+                {
+                    String[] time = input.split(":");
+                    hour = time[0];
+                    min = time[1];
+                    sec = time[2];
+                } catch (Exception e)
+                {
+                    System.out.println("Invalid time format.");
+                    continue;
+                }
+                Time arrivalTime = new Time(hour, min, sec);
+                if(Time.isInvalid(arrivalTime))
+                {
+                    System.out.println("Invalid time.");
+                    continue;
+                }
                 List<Edge> result = edges.stream()
-                        .filter(edge -> Utils.isEqual(arrivalTime, edge.arrivalTime))
+                        .filter(edge -> Time.isEqual(arrivalTime, edge.arrivalTime))
                         .sorted()
                         .collect(Collectors.toList());
 
