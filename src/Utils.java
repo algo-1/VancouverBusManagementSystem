@@ -22,7 +22,9 @@ public class Utils {
                     String[] input = line.trim().split(",");
                     int stopID = Integer.parseInt(input[0]);
                     String stopName = format(input[2], stopWords);
-                    stops.add(new Stop(stopID, stopName));
+                    String stopCode = input[1];
+                    String zoneID = input[6];
+                    stops.add(new Stop(stopID, stopName, stopCode, zoneID));
                 }
                 count++;
             }

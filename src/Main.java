@@ -82,7 +82,8 @@ public class Main {
                     {
                         for (Stop stop : matches)
                         {
-                            System.out.printf("stop name = %s, stop id = %d\n", stop.stopName, stop.stopID);
+                            System.out.printf("stop name = %s, stop id = %d, stop code = %s zone id = %s\n",
+                                    stop.stopName, stop.stopID, stop.stopCode, stop.zoneID);
                         }
                     }
 
