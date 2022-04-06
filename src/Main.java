@@ -39,10 +39,17 @@ public class Main {
                 if (!in.hasNextInt())
                 {
                     if(in.next().equalsIgnoreCase("quit")) break;
+                    System.out.println("Enter a number");
                     continue;
                 }
                 int sourceStopID = in.nextInt();
                 System.out.print("Enter a stop stop_id: ");
+                if (!in.hasNextInt())
+                {
+                    if(in.next().equalsIgnoreCase("quit")) break;
+                    System.out.println("Enter a number");
+                    continue;
+                }
                 if (!in.hasNextInt()) break;
                 int endStopID = in.nextInt();
                 System.out.printf("start stop_id = %d stop stop_id = %d\n", sourceStopID, endStopID);
