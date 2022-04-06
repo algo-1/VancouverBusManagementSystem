@@ -21,6 +21,22 @@ public class Time {
         return time.hour >= 24 || time.min >= 60 || time.sec >= 60;
     }
 
+    public static boolean isInvalidFormat(String time)
+    {
+        try
+        {
+            String[] timeSplit = time.split(":");
+            Integer.parseInt(timeSplit[0]);
+            Integer.parseInt(timeSplit[1]);
+            Integer.parseInt(timeSplit[2]);
+        } catch (Exception error)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public String toString()
     {
