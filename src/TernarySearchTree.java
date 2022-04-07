@@ -10,12 +10,11 @@ public class TernarySearchTree {
         private Node left;
         private Node mid;
         private Node right;
-        private final Stop value;
+        private Stop value;
 
-        Node(char key, Stop value)
+        Node(char key)
         {
             this.key = key;
-            this.value = value;
         }
     }
     TernarySearchTree() {}
@@ -30,11 +29,12 @@ public class TernarySearchTree {
         char letter = word.charAt(idx);
         if (node == null)
         {
-            node = new Node(letter, value);
+            node = new Node(letter);
         }
         if (letter < node.key) node.left = insert(node.left, word, value, idx);
         else if (letter > node.key) node.right = insert(node.right, word, value, idx);
         else if (idx < word.length() - 1) node.mid = insert(node.mid, word, value, idx + 1);
+        else node.value = value;
         return node;
     }
 
