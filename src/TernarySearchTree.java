@@ -62,11 +62,11 @@ public class TernarySearchTree {
 
     private List<Stop> getMatchingStops(Node node, List<Stop> matchingStops)
     {
-        if (node.mid == null)
+        if (node.value != null)
         {
             matchingStops.add(node.value);
-            return matchingStops;
         }
+        if (node.mid == null) return matchingStops;
 
         List<Node> subTries = new ArrayList<Node>();
         subTries.add(node.mid);
