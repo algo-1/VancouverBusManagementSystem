@@ -6,7 +6,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         List<Stop> stops = Utils.getStops("stops.txt");
-        List<Integer> stopIDs = stops.stream().map(s -> s.stopID).collect(Collectors.toList());
+        Set<Integer> stopIDs = stops.stream().map(s -> s.stopID).collect(Collectors.toSet());
 
         List<Edge> edges = Utils.getEdges("stop_times.txt");
         edges.addAll(Utils.getEdges("transfers.txt"));
@@ -42,7 +42,7 @@ public class Main {
                     System.out.print("Enter a start bus stop id: ");
                     if (in.hasNextInt()) break;
                     if (in.next().equalsIgnoreCase("quit")) break outerloop;
-                } while ((!in.hasNextInt()));
+                } while (true);
                 int sourceStopID = in.nextInt();
 
                 do
@@ -54,10 +54,27 @@ public class Main {
                 int endStopID = in.nextInt();
 
                 System.out.printf("start stop_id = %d stop stop_id = %d\n", sourceStopID, endStopID);
-                Deque<Pair<Integer, Double>> shortestPath = Dijkstra.dijkstra(sourceStopID, endStopID, stopIDs, graph);
-                for (Pair<Integer, Double> pair : shortestPath)
+                boolean inputValid = true;
+                if (!stopIDs.contains(sourceStopID))
                 {
-                    System.out.printf("stop_id = %d cost = %f\n", pair.first, pair.second);
+                    System.out.printf("your start stop id, %d is an invalid bus stop id\n", sourceStopID);
+                    inputValid = false;
+                }
+                if (!stopIDs.contains(endStopID))
+                {
+                    System.out.printf("your end stop id, %d is an invalid bus stop id\n", endStopID);
+                    inputValid = false;
+                }
+                if (!inputValid) continue;
+
+                Deque<Pair<Integer, Double>> shortestPath = Dijkstra.dijkstra(sourceStopID, endStopID, stopIDs, graph);
+                if (shortestPath.size() == 0) System.out.printf("There exists no path between stop %d and stop %d\n", sourceStopID, endStopID);
+                else
+                {
+                    for (Pair<Integer, Double> pair : shortestPath)
+                    {
+                        System.out.printf("stop_id = %d cost = %f\n", pair.first, pair.second);
+                    }
                 }
             }
         }

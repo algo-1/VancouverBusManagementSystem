@@ -4,7 +4,7 @@ public class Dijkstra {
     public static Deque<Pair<Integer, Double>> dijkstra(
             int sourceStopID,
             int endStopID,
-            List<Integer> stopIDs,
+            Set<Integer> stopIDs,
             Graph graph
     ) throws Exception
     {
@@ -12,23 +12,11 @@ public class Dijkstra {
 
         Map<Integer, Integer> prevStopIDs = new HashMap<Integer, Integer>();
 
-        boolean sourceExists = false;
-        boolean endExists = false;
         // set the cost from the source to all other intersections to the max value
-        for (int stopID: stopIDs) {
+        for (int stopID: stopIDs)
+        {
             lowestCosts.put(stopID, Double.MAX_VALUE);
-            if (stopID == sourceStopID)
-            {
-                sourceExists = true;
-            }
-            if (stopID == endStopID)
-            {
-                endExists = true;
-            }
         }
-
-        if (!sourceExists) throw new Exception("Start stop_id is invalid.");
-        if (!endExists) throw new Exception("End stop_id is invalid.");
 
         lowestCosts.put(sourceStopID, 0.0);
 
@@ -57,12 +45,15 @@ public class Dijkstra {
             }
         }
 
+        Deque<Pair<Integer, Double>> result = new LinkedList<>();
+
+        // if path does not exist return empty list
         if (!prevStopIDs.containsKey(endStopID) && endStopID != sourceStopID)
         {
-            throw new Exception("A path does not exist between the two stops.");
+            return result;
         }
 
-        Deque<Pair<Integer, Double>> result = new LinkedList<>();
+        // construct path
         int currStopID = endStopID;
         while (currStopID != sourceStopID)
         {
