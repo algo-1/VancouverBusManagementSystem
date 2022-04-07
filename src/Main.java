@@ -88,7 +88,7 @@ public class Main {
                 do
                 {
                     System.out.print("Enter part of a bus stop name: ");
-                    busStop = in.nextLine().trim().toUpperCase();
+                    busStop = in.nextLine().toUpperCase();
                     if (busStop.equalsIgnoreCase("quit")) done = true;
 
                 } while (busStop.length() == 0);
