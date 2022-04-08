@@ -6,8 +6,7 @@ public class Dijkstra {
             int endStopID,
             Set<Integer> stopIDs,
             Graph graph
-    ) throws Exception
-    {
+    ) {
         Map<Integer, Double> lowestCosts = new HashMap<Integer, Double>();
 
         Map<Integer, Integer> prevStopIDs = new HashMap<Integer, Integer>();
